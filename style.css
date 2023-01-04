@@ -1,0 +1,40 @@
+body{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+#screen {
+    background: gray;
+    height: 100px;
+    width: 615px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+}
+
+#buttons {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(4,150px);
+    grid-template-rows: repeat(4,100px);
+}
+
+.button {
+    background: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:active {
+    background: blue;
+}
+
+#operators {
+    display: grid;
+    grid-template-columns: repeat(1,150px);
+    grid-template-rows: repeat(4,100px);
+    gap: 5px;
+}
