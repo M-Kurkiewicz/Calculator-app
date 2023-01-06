@@ -4,18 +4,10 @@
 // could just use it if not for Odin ---^ :D
 
 function calculate(equation){
-    for(let number of equation) {
-        if(number != '*' || '/' || '+' || '-'){
-            continue;
-        }
-        else {
-            number = parseInt(number);
-        }
-    }
     for(let number of equation){
         if(number == '*'){
             let indexOfOperator = equation.indexOf(number);
-            let miniEquation = parseInt(equation[indexOfOperator-1]) * parseInt(equation[indexOfOperator+1]);
+            let miniEquation = parseFloat(equation[indexOfOperator-1]) * parseFloat(equation[indexOfOperator+1]);
             equation.splice(indexOfOperator-1,1);
             equation.splice(indexOfOperator,1);
             equation[indexOfOperator-1] = miniEquation;
@@ -24,7 +16,7 @@ function calculate(equation){
         // console.log(equation)
         if(number == '/'){
             let indexOfOperator = equation.indexOf(number)
-            let miniEquation = parseInt(equation[indexOfOperator-1]) / parseInt(equation[indexOfOperator+1]);
+            let miniEquation = parseFloat(equation[indexOfOperator-1]) / parseFloat(equation[indexOfOperator+1]);
             equation[indexOfOperator] = miniEquation;
             equation.splice(indexOfOperator-1,1);
             equation.splice(indexOfOperator,1);
@@ -36,7 +28,7 @@ function calculate(equation){
     for(let number of equation){
         if(number == '+'){
             let indexOfOperator = equation.indexOf(number)
-            let miniEquation = parseInt(equation[indexOfOperator-1]) + parseInt(equation[indexOfOperator+1]);
+            let miniEquation = parseFloat(equation[indexOfOperator-1]) + parseFloat(equation[indexOfOperator+1]);
             equation[indexOfOperator] = miniEquation;
             equation.splice(indexOfOperator-1,1);
             equation.splice(indexOfOperator,1);
@@ -46,7 +38,7 @@ function calculate(equation){
         if(number == '-'){
             console.log(equation)
             if (equation.indexOf(number) == '0'){
-                let miniEquation = 0 - parseInt(equation[1]);
+                let miniEquation = 0 - parseFloat(equation[1]);
                 equation[0] = miniEquation;
                 equation.splice(1,1);
                 console.log(equation)
@@ -55,7 +47,7 @@ function calculate(equation){
             else {
                 console.log(equation)
                 let indexOfOperator = equation.indexOf(number)
-                let miniEquation = parseInt(equation[indexOfOperator-1]) - parseInt(equation[indexOfOperator+1]);
+                let miniEquation = parseFloat(equation[indexOfOperator-1]) - parseFloat(equation[indexOfOperator+1]);
                 equation[indexOfOperator] = miniEquation;
                 equation.splice(indexOfOperator-1,1);
                 equation.splice(indexOfOperator,1);
@@ -79,6 +71,7 @@ for(let operator of operators){
     operatorList.push(operator.innerHTML)
 }
 let lastSymbol = '';
+let dotButton = document.getElementById('dot-button')
 
 // DISPLAY FOR NUMBERS
 for(let number of numbers) {
@@ -108,12 +101,21 @@ for(let operator of operators) {
 let clearButton = document.getElementById('clear-button')
 clearButton.addEventListener('click',function(){
     calculationScreen.innerHTML = '';
+    outcomeScreen.innerHTML = '';
 })
 
-// let backButton = document.getElementById('back-button')
-// backButton.addEventListener('click',function(){
-//     calculationScreen.innerHTML = calculationScreen.innerHTML.slice(0,-3)
-// })
+let backButton = document.getElementById('back-button')
+backButton.addEventListener('click',function(){
+    if(calculationScreen.innerHTML.slice(-1) == " "){
+        calculationScreen.innerHTML = calculationScreen.innerHTML.slice(0,-3)
+        lastSymbol = calculationScreen.innerHTML.slice(-1)
+        outcomeScreen.innerHTML = '';
+    }
+    else {
+        calculationScreen.innerHTML = calculationScreen.innerHTML.slice(0,-1)
+        outcomeScreen.innerHTML = '';
+    }
+})
 
 // EQUALS BUTTON BUTTON FUNCTION
 let equalsButton = document.getElementById('equals-button')
@@ -123,4 +125,12 @@ equalsButton.addEventListener('click',function(){
         outcomeScreen.innerHTML = calculate(equation);
     }
 
+})
+
+dotButton.addEventListener('click',function(){
+    if(!(operatorList.includes(lastSymbol))){
+        calculationScreen.innerHTML += ".";
+        lastSymbol = '.'
+        operatorList.push('.')
+    }
 })
