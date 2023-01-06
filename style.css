@@ -1,31 +1,80 @@
-body{
+html, body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
     display: flex;
-    gap: 5px;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #2D3142;
 }
-#screen {
-    background: gray;
+
+#calculator {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 350px;
+}
+#screen{
+    background: #ADACB5;
     height: 100px;
-    width: 615px;
-    color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+#calculation-screen {
+    width: 100%;
+    height: 40%;
+    font-size: 150%;
+}
+
+#outcome-screen {
+    width: 100%;
+    height: 60%;
+    font-size: 250%;
+}
+
+#calculation-screen, #outcome-screen {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 45px;
 }
 
 #buttons {
-    display: grid;
     gap: 5px;
-    grid-template-columns: repeat(4,150px);
-    grid-template-rows: repeat(4,100px);
 }
 
-.button {
-    background: lightblue;
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 80%;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.special-row {
+    height: 30%;
+}
+
+.special-button {
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: red;
+    opacity: 70%;
+}
+
+.button {
+    background: #B0D7FF;
+    color: #2D3142;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    opacity: 70%;
 }
 
 .button:active {

@@ -1,6 +1,6 @@
 // // strip anything other than digits, (), -+/* and .
-// let equation = screen.innerHTML.replace(/[^-()\d/*+.]/g, '');
-// screen.innerHTML = eval(equation);
+// let equation = calculationScreen.innerHTML.replace(/[^-()\d/*+.]/g, '');
+// calculationScreen.innerHTML = eval(equation);
 // could just use it if not for Odin ---^ :D
 
 function calculate(equation){
@@ -71,37 +71,56 @@ function calculate(equation){
 
 let numbers = document.querySelectorAll('.number');
 let operators = document.querySelectorAll('.operator');
-var screen = document.getElementById('screen');
-screen.innerHTML = null;
+var calculationScreen = document.getElementById('calculation-screen');
+var outcomeScreen = document.getElementById('outcome-screen');
+calculationScreen.innerHTML = '';
+let operatorList = [];
+for(let operator of operators){
+    operatorList.push(operator.innerHTML)
+}
+let lastSymbol = '';
 
 // DISPLAY FOR NUMBERS
 for(let number of numbers) {
     number.addEventListener('click',function(){
-        screen.innerHTML += number.innerHTML;
+        calculationScreen.innerHTML += number.innerHTML;
+        lastSymbol = number.innerHTML;
     })
 }
 // DISPLAY FOR OPERATORS()
 for(let operator of operators) {
     operator.addEventListener('click',function(){
-        if(operator.innerHTML == '-') {
-            screen.innerHTML += operator.innerHTML + " ";
-        }
-        else {
-            if(screen.innerHTML != ''){
-                screen.innerHTML += " " + operator.innerHTML + " ";
+        if(!(operatorList.includes(lastSymbol))){
+            if(operator.innerHTML == '-') {
+                calculationScreen.innerHTML += " "+ operator.innerHTML + " ";
+                lastSymbol = operator.innerHTML;
+             }
+            else {
+                if(calculationScreen.innerHTML != ''){
+                    calculationScreen.innerHTML += " " + operator.innerHTML + " ";
+                    lastSymbol = operator.innerHTML;
+                }
             }
         }
-    })
+    })     
 }
 // CLEAR BUTTON FUNCTION
 let clearButton = document.getElementById('clear-button')
 clearButton.addEventListener('click',function(){
-    screen.innerHTML = '';
+    calculationScreen.innerHTML = '';
 })
+
+// let backButton = document.getElementById('back-button')
+// backButton.addEventListener('click',function(){
+//     calculationScreen.innerHTML = calculationScreen.innerHTML.slice(0,-3)
+// })
+
 // EQUALS BUTTON BUTTON FUNCTION
 let equalsButton = document.getElementById('equals-button')
 equalsButton.addEventListener('click',function(){
-    equation = screen.innerHTML.split(" ");
-    screen.innerHTML = calculate(equation);
+    if(!(operatorList.includes(lastSymbol))){
+        equation = calculationScreen.innerHTML.split(" ");
+        outcomeScreen.innerHTML = calculate(equation);
+    }
 
 })
