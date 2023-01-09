@@ -126,11 +126,23 @@ equalsButton.addEventListener('click',function(){
     }
 
 })
-
+// DOT BUTTON BUTTON FUNCTION
 dotButton.addEventListener('click',function(){
     if(!(operatorList.includes(lastSymbol))){
         calculationScreen.innerHTML += ".";
-        lastSymbol = '.'
-        operatorList.push('.')
+        lastSymbol = '.';
+        operatorList.push('.');
+    }
+})
+
+let negateButton = document.getElementById('negate-button');
+negateButton.addEventListener('click',function(){
+    if(!(operatorList.includes(lastSymbol))){
+        let screenOutcome = calculationScreen.innerHTML.split(" ");
+        let lastNumber = screenOutcome.pop();
+        let negatedNumber = lastNumber - lastNumber*2;
+        screenOutcome.push(negatedNumber);
+        calculationScreen.innerHTML = screenOutcome.join(" ");
+
     }
 })
